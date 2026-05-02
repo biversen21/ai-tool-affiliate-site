@@ -1,0 +1,24 @@
+{
+  "slug": "claude",
+  "title": "Claude",
+  "tagline": "Anthropic's AI assistant, known for nuanced reasoning and long context windows.",
+  "description": "Claude is built by Anthropic with a focus on safety and helpfulness. It handles extremely long documents (up to 200K tokens), writes in a natural voice, and excels at careful analysis and instruction-following. Claude.ai offers a free tier; Claude Pro at $20/month gives priority access to the latest models.",
+  "metaDescription": "Claude AI review: pricing, pros, cons, and who it's best for. Compare Claude to ChatGPT and other AI assistants.",
+  "canonicalUrl": "https://example.com/tools/claude",
+  "affiliateUrl": "https://claude.ai",
+  "category": "chatbots",
+  "pricing": "Free / $20/mo (Pro) / $25/mo (Team)",
+  "pros": [
+    "Industry-leading 200K token context window",
+    "Excellent at following complex instructions",
+    "Strong safety and reduced hallucination rate",
+    "Great for long document analysis"
+  ],
+  "cons": [
+    "No image generation",
+    "Smaller plugin ecosystem than ChatGPT",
+    "Web search is limited on free tier"
+  ],
+  "rating": 4.5,
+  "publishedAt": "2025-01-20"
+}

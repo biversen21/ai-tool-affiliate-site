@@ -1,0 +1,24 @@
+{
+  "slug": "midjourney",
+  "title": "Midjourney",
+  "tagline": "Stunning AI image generation via Discord or the new web interface.",
+  "description": "Midjourney produces some of the highest-quality AI-generated images available. It runs through Discord (or a new web app) and is driven by text prompts. Its aesthetic leans toward artistic and photorealistic imagery. No free tier—plans start at $10/month for 3.3 hours of GPU time.",
+  "metaDescription": "Midjourney review: pricing, image quality, pros and cons. Is it worth $10/month in 2025?",
+  "canonicalUrl": "https://example.com/tools/midjourney",
+  "affiliateUrl": "https://midjourney.com",
+  "category": "image-generation",
+  "pricing": "From $10/mo (Basic) to $120/mo (Pro)",
+  "pros": [
+    "Best aesthetic quality of any image AI",
+    "Active community with shared prompts",
+    "Consistent style control with --style flags",
+    "Fast generation on higher-tier plans"
+  ],
+  "cons": [
+    "No free tier",
+    "Discord-first UX can be confusing",
+    "Limited control over exact compositions"
+  ],
+  "rating": 4.0,
+  "publishedAt": "2025-02-01"
+}
