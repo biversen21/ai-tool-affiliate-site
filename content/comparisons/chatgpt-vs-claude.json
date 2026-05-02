@@ -1,0 +1,10 @@
+{
+  "slug": "chatgpt-vs-claude",
+  "title": "ChatGPT vs Claude",
+  "description": "A detailed head-to-head comparison of ChatGPT and Claude. We look at writing quality, coding, pricing, context length, and overall value.",
+  "metaDescription": "ChatGPT vs Claude (2025): Which AI assistant is better? We compare pricing, features, and real-world performance.",
+  "canonicalUrl": "https://example.com/compare/chatgpt-vs-claude",
+  "tools": ["chatgpt", "claude"],
+  "verdict": "Both ChatGPT and Claude are excellent AI assistants. Choose ChatGPT if you want the broadest plugin ecosystem and the most active community. Choose Claude if you regularly work with long documents, need careful instruction-following, or prefer a more natural writing style. At the same $20/month price point, the choice comes down to your primary use case.",
+  "publishedAt": "2025-02-10"
+}

@@ -1,0 +1,24 @@
+{
+  "slug": "chatgpt",
+  "title": "ChatGPT",
+  "tagline": "The world's most popular AI chatbot for writing, coding, and research.",
+  "description": "ChatGPT is a large language model developed by OpenAI. It excels at natural conversation, long-form writing, code generation, and summarisation. The free tier uses GPT-3.5, while ChatGPT Plus ($20/month) unlocks GPT-4o with faster responses and image understanding.",
+  "metaDescription": "ChatGPT review: pricing, pros, cons, and who it's best for. See how it compares to other AI tools.",
+  "canonicalUrl": "https://example.com/tools/chatgpt",
+  "affiliateUrl": "https://chat.openai.com",
+  "category": "chatbots",
+  "pricing": "Free / $20/mo (Plus) / $25/mo (Team)",
+  "pros": [
+    "Best-in-class conversational quality",
+    "Massive plugin and GPT ecosystem",
+    "Strong coding assistant via Code Interpreter",
+    "Available on web, iOS, and Android"
+  ],
+  "cons": [
+    "Free tier is slower and less capable",
+    "Can hallucinate facts confidently",
+    "No real-time web access on free plan"
+  ],
+  "rating": 4.5,
+  "publishedAt": "2025-01-15"
+}
