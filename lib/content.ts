@@ -2,7 +2,9 @@ import fs from "fs";
 import path from "path";
 import type { Tool, Category, Comparison } from "./types";
 
-const contentDir = path.join(process.cwd(), "content");
+function contentDir(): string {
+  return path.join(process.cwd(), "content");
+}
 
 function readJson<T>(filePath: string): T {
   const raw = fs.readFileSync(filePath, "utf-8");
@@ -10,7 +12,7 @@ function readJson<T>(filePath: string): T {
 }
 
 function listSlugs(dir: string): string[] {
-  const fullDir = path.join(contentDir, dir);
+  const fullDir = path.join(contentDir(), dir);
   if (!fs.existsSync(fullDir)) return [];
   return fs
     .readdirSync(fullDir)
@@ -24,7 +26,7 @@ export function getToolSlugs(): string[] {
 }
 
 export function getTool(slug: string): Tool | null {
-  const filePath = path.join(contentDir, "tools", `${slug}.json`);
+  const filePath = path.join(contentDir(), "tools", `${slug}.json`);
   if (!fs.existsSync(filePath)) return null;
   return readJson<Tool>(filePath);
 }
@@ -41,7 +43,7 @@ export function getCategorySlugs(): string[] {
 }
 
 export function getCategory(slug: string): Category | null {
-  const filePath = path.join(contentDir, "categories", `${slug}.json`);
+  const filePath = path.join(contentDir(), "categories", `${slug}.json`);
   if (!fs.existsSync(filePath)) return null;
   return readJson<Category>(filePath);
 }
@@ -58,7 +60,7 @@ export function getComparisonSlugs(): string[] {
 }
 
 export function getComparison(slug: string): Comparison | null {
-  const filePath = path.join(contentDir, "comparisons", `${slug}.json`);
+  const filePath = path.join(contentDir(), "comparisons", `${slug}.json`);
   if (!fs.existsSync(filePath)) return null;
   return readJson<Comparison>(filePath);
 }
