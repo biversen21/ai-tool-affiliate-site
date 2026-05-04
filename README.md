@@ -1,88 +1,106 @@
-# AI Tool Affiliate Site
+# ai-tool-affiliate-site
 
-A static-friendly Next.js site for AI tool reviews and affiliate content.
+A static-friendly Next.js site for AI tool reviews, category pages, and head-to-head comparisons with affiliate monetisation.
 
-## Tech stack
+## Stack
 
-- **Next.js 15** (App Router)
-- **TypeScript**
-- **Tailwind CSS**
-- **Local JSON files** — no CMS or database
+| | |
+|---|---|
+| Framework | Next.js 15 (App Router) |
+| Language | TypeScript |
+| Styles | Tailwind CSS |
+| Content | Local JSON files |
+| Hosting | Vercel (recommended) |
+
+No database, no CMS, no auth.
 
 ---
 
-## Local development
+## Local dev
 
 ```bash
-# 1. Install dependencies
 npm install
-
-# 2. Copy env vars
-cp .env.example .env.local
-# Edit .env.local and set NEXT_PUBLIC_SITE_URL
-
-# 3. Start dev server
-npm run dev
-# → http://localhost:3000
+cp .env.example .env.local   # set NEXT_PUBLIC_SITE_URL
+npm run dev                  # http://localhost:3000
 ```
 
 ---
 
-## Content
+## Project structure
 
-All content lives in `content/` as plain JSON files. No build step required — just add or edit files and refresh.
+```
+app/
+  layout.tsx                 # Shell: header, footer
+  page.tsx                   # Homepage
+  tools/
+    page.tsx                 # /tools index
+    [slug]/page.tsx          # /tools/[slug]
+  categories/
+    page.tsx                 # /categories index
+    [slug]/page.tsx          # /categories/[slug]
+  compare/
+    page.tsx                 # /compare index
+    [slug]/page.tsx          # /compare/[slug]
+  go/[slug]/route.ts         # Affiliate redirect → affiliateUrl
+  sitemap.ts                 # Auto-generated /sitemap.xml
+  robots.ts                  # Auto-generated /robots.txt
 
-### Adding a tool
+lib/
+  content.ts                 # JSON loaders (getTool, getCategory, getComparison, getAll*)
+  types.ts                   # Tool | Category | Comparison interfaces
 
-Create `content/tools/<slug>.json`:
+content/
+  tools/        *.json
+  categories/   *.json
+  comparisons/  *.json
+```
+
+---
+
+## Adding content
+
+### Tool — `content/tools/<slug>.json`
 
 ```json
 {
   "slug": "my-tool",
   "title": "My Tool",
-  "tagline": "One-line pitch.",
-  "description": "Longer review paragraph.",
-  "metaDescription": "SEO meta description (150–160 chars).",
+  "tagline": "One-line pitch shown on cards.",
+  "description": "Full review paragraph rendered on the tool page.",
+  "metaDescription": "SEO meta description, 150–160 characters.",
   "canonicalUrl": "https://your-domain.com/tools/my-tool",
-  "affiliateUrl": "https://affiliate-link.com/?ref=you",
+  "affiliateUrl": "https://affiliate-link.example.com/?ref=you",
   "category": "chatbots",
   "pricing": "Free / $20/mo",
-  "pros": ["Fast", "Affordable"],
+  "pros": ["Fast", "Generous free tier"],
   "cons": ["No mobile app"],
   "rating": 4.5,
   "publishedAt": "2025-01-01"
 }
 ```
 
-Route: `/tools/[slug]`
-Affiliate redirect: `/go/[slug]` → `affiliateUrl`
-
-### Adding a category
-
-Create `content/categories/<slug>.json`:
+### Category — `content/categories/<slug>.json`
 
 ```json
 {
   "slug": "chatbots",
   "title": "AI Chatbots",
-  "description": "Short category description.",
+  "description": "Short description shown on the category page.",
   "metaDescription": "SEO meta description.",
   "canonicalUrl": "https://your-domain.com/categories/chatbots",
   "tools": ["chatgpt", "claude"]
 }
 ```
 
-Route: `/categories/[slug]`
+The `tools` array references tool slugs. Missing slugs are silently skipped.
 
-### Adding a comparison
-
-Create `content/comparisons/<slug>.json`:
+### Comparison — `content/comparisons/<slug>.json`
 
 ```json
 {
   "slug": "chatgpt-vs-claude",
   "title": "ChatGPT vs Claude",
-  "description": "Short intro.",
+  "description": "Short intro paragraph.",
   "metaDescription": "SEO meta description.",
   "canonicalUrl": "https://your-domain.com/compare/chatgpt-vs-claude",
   "tools": ["chatgpt", "claude"],
@@ -91,57 +109,49 @@ Create `content/comparisons/<slug>.json`:
 }
 ```
 
-Route: `/compare/[slug]`
-
----
-
-## Routes
-
-| Route | Description |
-|---|---|
-| `/` | Homepage — latest tools, categories, comparisons |
-| `/tools` | All tool reviews |
-| `/tools/[slug]` | Individual tool review |
-| `/categories` | All categories |
-| `/categories/[slug]` | Category page listing tools |
-| `/compare` | All comparisons |
-| `/compare/[slug]` | Head-to-head comparison |
-| `/go/[slug]` | Affiliate redirect (disallowed in robots.txt) |
-| `/sitemap.xml` | Auto-generated sitemap |
-| `/robots.txt` | Disallows `/go/` from crawlers |
-
 ---
 
 ## SEO
 
-Each page generates `<title>`, `<meta description>`, and `<link rel="canonical">` from its JSON payload via Next.js `generateMetadata`. The sitemap at `/sitemap.xml` is generated automatically from all content files.
+- `generateMetadata` on every page sets `<title>`, `<meta name="description">`, and `<link rel="canonical">` from the JSON payload.
+- `/sitemap.xml` is generated at request time from all content files.
+- `/robots.txt` allows everything except `/go/` (affiliate redirects).
+- Set `NEXT_PUBLIC_SITE_URL` to your production domain — it drives canonical URLs and the sitemap.
 
-Set `NEXT_PUBLIC_SITE_URL` to your production domain so canonical URLs and the sitemap are correct.
+---
+
+## Affiliate redirects
+
+`/go/[slug]` reads `affiliateUrl` from the matching tool JSON and issues a server-side redirect. The route is blocked in `robots.txt` so crawlers don't follow it.
 
 ---
 
 ## Deployment
 
-### Vercel (recommended)
+### Vercel
 
-```bash
-# Push to GitHub, then import the repo at vercel.com
-# Set NEXT_PUBLIC_SITE_URL in the Vercel environment variables UI
-```
+Push to GitHub, import the repo at [vercel.com](https://vercel.com), set `NEXT_PUBLIC_SITE_URL` in environment variables. No other config needed.
 
-### Self-hosted (Node.js)
+### Node.js (self-hosted)
 
 ```bash
 npm run build
 npm start
 ```
 
-### Static export (no `/go` redirect or sitemap route)
+### Fully static (Cloudflare Pages, S3, etc.)
 
-If you need a fully static export (Cloudflare Pages, S3, etc.), remove the `/go` route handler, replace `sitemap.ts`/`robots.ts` with static files in `public/`, then:
+The `/go` route handler and the `sitemap.ts` / `robots.ts` routes require a Node.js runtime and are incompatible with `output: "export"`. To go fully static:
 
-```bash
-# next.config.ts: set output: "export"
-npm run build
-# Output is in /out
-```
+1. Remove `app/go/[slug]/route.ts` (replace with a client-side redirect page if needed).
+2. Replace `app/sitemap.ts` and `app/robots.ts` with static files in `public/`.
+3. Add `output: "export"` to `next.config.ts`.
+4. Run `npm run build` — output lands in `/out`.
+
+---
+
+## Environment variables
+
+| Variable | Required | Description |
+|---|---|---|
+| `NEXT_PUBLIC_SITE_URL` | Yes (prod) | Full origin, e.g. `https://your-domain.com`. Drives canonical URLs and sitemap. |
