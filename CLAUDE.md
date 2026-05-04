@@ -60,7 +60,7 @@ Never add a CMS, database, or external content API without explicit instruction.
 - Develop on `claude/ai-tool-affiliate-site-acPzN`.
 - Open a PR into `main` for every change set.
 - Commit messages: short imperative subject, blank line, brief body if needed.
-- Always push after committing: `git push -u origin <branch>`.
+- **Always open the PR in the same response as the push** — commit → push → open PR → link it, all in one turn. Never split across turns; the user may merge before the next response.
 
 ## Environment variables
 
